@@ -3,5 +3,4 @@ h1. Rails Recipes
 This repository contains a number of recipes I developed for my Rails applications.
 
 * "Restful Permissions":master/restful-permissions
-* "List Options":
-* "Request Environment":
+* "Request Environment":master/request-environment
