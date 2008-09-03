@@ -2,5 +2,5 @@ h1. Rails Recipes
 
 This repository contains a number of recipes I developed for my Rails applications.
 
-* "Restful Permissions":master/restful-permissions
-* "Request Environment":master/request-environment
+* "Request Environment":master/request-environment: store your request params like current user in a way that is accessible to your models.
+* "Restful Permissions":master/restful-permissions: A clean and object oriented way to handle permissions in views and controllers.
