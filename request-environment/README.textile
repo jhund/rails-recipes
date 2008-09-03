@@ -1,0 +1,34 @@
+h1. Rails Recipe: Request Environment
+
+h2. Objective
+
+To store web request environment parameters accessibly everywhere in my Rails app. Examples:
+
+* the current user needs to be accessible to my Models to implement an audit trail via Active Record callbacks.
+* I want to store the current time zone so that it can be used by the various parts of my app (This is actually what Rails does for TimeZone support).
+* You could make session information accessible to the models. Not sure if this is a good idea ...
+
+h2. Summary
+
+# implement accessors for 'current' on each class that is a request environment parameter. In this example I implement "User.current":request-environment/app/models/person.rb
+# set the variable via the accessors in an "application_controller":request-environment/app/controllers/application.rb before_filter
+# accessors store current request parameters in Thread.current[:parameter_name]
+
+h2. Discussion
+
+This approach is officially Rails sanctioned (TimeZone support) and should be future proof, even in multithreaded environments.
+
+Warning: Don't use this approach to fall back to global variables. They are evil!
+
+Question: Do I need to reset any variables stored in Thread.current once my request is handled? Or do they get reset automatically by the Thread handler? Doesn't matter if I set Thread.current to new values in the next request.
+
+h2. Current implementation for current_user
+
+The following table compares implementation of current_user as provided by restful-authentication and as suggested in this recipe.
+
+||Restful-authentication|This recipe|
+|Access|current_user|User.current|
+|Available in View/Controller|Yes|Yes|
+|Use in Models|No|Yes|
+|Use in console|No|Yes|
+|Unambiguous name space|No|Yes|
