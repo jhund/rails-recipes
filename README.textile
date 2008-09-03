@@ -1,5 +1,7 @@
-h1. Testing textile
+h1. Rails Recipes
 
-and whether I can link to a file from here
+This repository contains a number of recipes I developed for my Rails applications.
 
-"this is the file":master/restful-permissions/lib/has_restful_permissions.rb
+* "Restful Permissions":master/restful-permissions/README.textile
+* "List Options":
+* "Request Environment":

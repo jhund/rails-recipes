@@ -1,0 +1,3 @@
+h1. Rails recipe: Restful permissions
+
+This page will contain the writeup for restful permissions.
