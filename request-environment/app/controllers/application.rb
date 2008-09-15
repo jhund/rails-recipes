@@ -6,7 +6,7 @@ private
 
   # stores parameters for current request
   def set_request_parameters
-    Person.current = current_person
+    Person.current = current_user # current_user is set by restful_authentication
     Conference.current = Conference.new
     # You would also set the time zone for Rails time zone support here:
     # Time.zone = Person.current.time_zone

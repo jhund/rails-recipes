@@ -26,7 +26,7 @@ h2. Current implementation for current_user
 
 The following table compares implementation of current_user as provided by restful-authentication and as suggested in this recipe.
 
-||Restful-authentication|This recipe|
+|_.Feature|_.Restful-authentication|_.This recipe|
 |Access|current_user|User.current|
 |Available in View/Controller|Yes|Yes|
 |Use in Models|No|Yes|
