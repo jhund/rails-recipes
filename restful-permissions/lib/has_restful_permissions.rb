@@ -17,18 +17,18 @@
 #
 # def creatable_by?(actor)
 #   # anybody who is logged in
-#   actor.is_a?(Person)
+#   actor.is_a?(User)
 # end
 #
 # def updatable_by?(actor)
 #   # logged in, has admin role or owns this resource
-#   actor.is_a?(Person) && (actor.is_admin || self.owned_by?(actor))
+#   actor.is_a?(User) && (actor.is_admin || self.owned_by?(actor))
 # end
 #
 # These are just the basic CRUD operations. Sometimes, when you have
-# non-REST actions on your resources, you might need additional 
+# non-REST actions on your resources, you might need additional
 # permission rules that are specific to your business logic.
-# Examples: is_refundable_by, is_transferrable_by, etc.
+# Examples: is_refundable_by?, is_transferrable_by?, etc.
 #
 # Exception to raise on permission violations
 class PermissionViolation < StandardError; end
@@ -46,36 +46,36 @@ module HasRestfulPermissions
     # permission rules, override these in the resource class
 
     # Returns true if actor can create this new instance.
-    # I decided to make this an instance method as opposed to a
-    # class method because sometimes you need to look at the state
+    # I prefer the instance method over the class method
+    # because sometimes you need to look at the state
     # of the newly instantiated object or its related objects
-    # to decide whether the current user is permitted to create it
+    # to decide whether the current user is permitted to create it.
     def creatable_by?(actor)
-      actor.is_a?(Person)
+      actor.is_a?(User)
     end
 
     # Returns true if actor can destroy this resource.
     def destroyable_by?(actor)
-      actor.is_a?(Person) && self.owned_by?(actor)
+      actor.is_a?(User) && self.owned_by?(actor)
     end
 
     # Returns true if actor can update this resource.
     def updatable_by?(actor)
-      actor.is_a?(Person) && self.owned_by?(actor)
+      actor.is_a?(User) && self.owned_by?(actor)
     end
 
     # Returns true if actor can view this resource.
     def viewable_by?(actor)
-      actor.is_a?(Person)
+      actor.is_a?(User)
     end
 
     # Returns true if actor owns this resource.
     # Expresses a control/ownership association.
-    # Expects actor to be a Person (usually checked for in other
+    # Expects actor to be a User (usually checked for in other
     # permission methods before this method is called)
     def owned_by?(actor)
       # defaults to false. Override if resource has owner
-      true
+      false
     end
 
   end
@@ -83,11 +83,17 @@ module HasRestfulPermissions
   module ClassMethods
     # Returns true if actor can view a list of resources of this class.
     def listable_by?(actor)
-      actor.is_a?(Person)
+      actor.is_a?(User)
     end
 
-    # you might expect 'creatable_by?' in here as well,
-    # see comment in instance method
+    # alternative way to check if resource is creatable by actor.
+    # use this class method instead of the instance method if resource
+    # is not instantiated at time of checking permissions
+    # This is useful when deciding whether to render a "new" link
+    # used for creating a new resource.
+    def creatable_by?(actor)
+      actor.is_a?(User)
+    end
   end
 
 end
