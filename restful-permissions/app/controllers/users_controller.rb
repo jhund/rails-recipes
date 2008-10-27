@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   def index
-    raise SecurityTransgression unless User.listable_by?(current_user)
+    raise PermissionViolation unless User.listable_by?(current_user)
     @users = User.find(:all)
 
     respond_to do |format|
@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    raise SecurityTransgression unless @user.viewable_by?(current_user)
+    raise PermissionViolation unless @user.viewable_by?(current_user)
 
     respond_to do |format|
       format.html
@@ -20,17 +20,17 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    raise SecurityTransgression unless @user.creatable_by?(current_user)
+    raise PermissionViolation unless @user.creatable_by?(current_user)
   end
 
   def edit
     @user = User.find(params[:id])
-    raise SecurityTransgression unless @user.updatable_by?(current_user)
+    raise PermissionViolation unless @user.updatable_by?(current_user)
   end
 
   def create
     @user = User.new(params[:user])
-    raise SecurityTransgression unless @user.creatable_by?(current_user)
+    raise PermissionViolation unless @user.creatable_by?(current_user)
 
     @user.save!
     self.current_user = @user
@@ -41,7 +41,7 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    raise SecurityTransgression unless @user.updatable_by?(current_user)
+    raise PermissionViolation unless @user.updatable_by?(current_user)
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
@@ -55,7 +55,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    raise SecurityTransgression unless @user.destroyable_by?(current_user)
+    raise PermissionViolation unless @user.destroyable_by?(current_user)
     @user.destroy
 
     respond_to do |format|
