@@ -6,9 +6,9 @@ class Activity < ActiveRecord::Base
       q = "%#{query.downcase}%"
       { :conditions => ['lower(activities.description) LIKE ?', q] } }
   named_scope :for_project, lambda { |project_ids|
-      { :conditions => ['activities.project_id IN (?)', *project_ids.to_a] } }
+      { :conditions => ['activities.project_id IN (?)', [*project_ids]] } }
   named_scope :with_activity_type, lambda { |activity_type_ids|
-      { :conditions => ['activities.activity_type_id IN (?)', *activity_type_ids.to_a] } }
+      { :conditions => ['activities.activity_type_id IN (?)', [*activity_type_ids]] } }
   # don't call the below 'sort_by'. There seems to be some naming conflict
   named_scope :sorted_by, lambda { |sort_option|
       case sort_option.to_s
