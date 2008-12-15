@@ -1,3 +1,5 @@
 h1. Recipe: RESTful permissions for Rails
 
+This recipe provides a very clean and object oriented way to handle access to resources in Rails controllers and views.
+
 For more info see the "ClearCove blog":http://clearcove.ca/blog/2008/08/recipe-restful-permissions-for-rails/
