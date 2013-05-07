@@ -12,27 +12,77 @@ Rails has had great support for `Concerns` since version 3.
 There is a bit of controversy around this topic. I agree that in some cases
 it's better to use composition than mixing in modules.
 
-However in some cases where you just can't take the golden path because of some
+However in many cases where you just can't take the golden path because of some
 constraints you are subject to, it makes perfect sense to re-organize your fat
-model into concerns that are both coherent and have a single responsibility.
+model into concerns that are both cohesive and have a single responsibility.
 
 The nice thing about concerns is that it's a very low risk refactor that can
 provide great value and clarity.
 
+Below I illustrate what such a refactor can look like:
 
-* TODO: show two pictures of my son's Legos (junk drawer and sorted).
-* TODO: Include diagram that shows how concerns can be tested fast and in isolation,
-  vs. fat model
+![How to use concerns to refactor and test a fat model](/images/concerns_progression.png)
 
-NOTE: the below is work in progress and will be updated very soon.
+### A: Big fat legacy Rails ActiveRecord User model
 
-* Store modules in `/app/concerns/`, or under a model's namespace if the concern
-  is specific to a model, like `User::HasPermissions`.
-* Add the below to your auto_load_paths in application.rb (NOTE: not required in
-  Rails4 any more):
-    `config.autoload_paths += "#{ config.root }/app/concerns"`
+It is a junk drawer of methods, both AR specific and domain specific.
+It has > 1,000 LOC. It is a nightmare to step into.
+In our example, there are 4 concerns represented in the User model:
+
+1. Users receive emails.
+2. Users have permissions.
+3. Users have presenters for display.
+4. Users have profile settings.
+
+Each concern is represented with an icon.
+
+### B: Slim model with concerns mixed in
+
+We have removed everything that is domain logic into cohesive concerns. We include
+these concerns into the AR User model, so at runtime nothing really changes.
+The User model still has all the same methods. These are the concerns we extracted:
+
+* User::ReceivesEmails
+* User::HasPermissions
+* User::HasPresenter
+* User::HasProfileSettings
+
+Benefits:
+
+* It's easy to find methods and to reason about their responsibility
+  and how they fit into the app's overall structure.
+* You can try out different clusters of methods without affecting runtime
+  behavior. This is a very low risk and high yield refactor.
+* You can re-use behavior more easily between classes.
+
+### C: Testing a domain concern
+
+Now that your concern is contained in a cohesive package, you can take it and
+do things with it in isolation. E.g., testing it. Just include it into a `Test::User`
+class, stub a few dependencies, and now you can have very fast and simple
+unit tests. You don't need to satisfy everything that was part of the Fat User
+model in scenario A):
+
+* AR validations
+* AR associations
+* AR call_backs
+* state_machines
+* file attachments with ImageMagick (Oh my...)
+* etc.
+
+
+More info on Concerns
+---------------------
+
+* Store concerns that belong to a resource under that resource:
+  E.g., `User::HasPermissions` goes to `app/models/user/has_permissions.rb`.
+  Concerns that cut across many resources go into `/app/concerns/`:
+  E.g., `Presenter::DateTime`.
+* Add the below to your auto_load_paths in application.rb (NOTE: this is not
+  required any more in Rails4): `config.autoload_paths += "#{ config.root }/app/concerns"`
 * Naming convention: If you are adding shared behavior to a polymorphic
-  association, you could call it `CommentableMixin`.
+  association, call it `CommentableMixin` where `:commentable` is the name
+  of the polymorphic association.
 * Gotcha: Don't use three subsequent upper case letters when naming your classes.
     * Will **NOT** work: `IORatio`, with file name `i_o_ratio.rb`. For some
       reason, Rails won't load the module.
@@ -72,9 +122,3 @@ class ExtendedClass < ActiveRecord::Base
 
 end
 ```
-
-Additional Reading
-------------------
-
-* http://yehudakatz.com/2009/11/12/better-ruby-idioms/
-* http://www.strictlyuntyped.com/2010/05/tweaking-on-rails-30-2.html

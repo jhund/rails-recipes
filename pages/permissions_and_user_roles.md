@@ -13,7 +13,7 @@ This pattern helps you manage permissions in your app in a simple and robust way
 
 In this example we define access permissions on the User class in our app:
 
-## 1. Include the 'HasPermissions' concern in your User class
+### 1. Include the 'HasPermissions' concern in your User class
 
 ```ruby
 # app/models/user.rb
@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
 end
 ```
 
-## 2. Define the permissions in a Concern
+### 2. Define the permissions in a Concern
 
 ```ruby
 # app/models/user/has_permissions.rb
@@ -74,7 +74,7 @@ module User::HasPermissions
 end
 ```
 
-## 3. Check permissions in your controller
+### 3. Check permissions in your controller
 
 ```ruby
 # app/controllers/users_controller.rb
@@ -106,7 +106,7 @@ class UserController < ApplicationController
 end
 ```
 
-## 4. Rescue AuthorizationErrors in your ApplicationController
+### 4. Rescue AuthorizationErrors in your ApplicationController
 
 ```ruby
 # app/controllers/application_controller.rb
@@ -126,7 +126,7 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-## 5. Define a custom error in initializers
+### 5. Define a custom error in initializers
 
 ```ruby
 # config/initializers/custom_errors.rb

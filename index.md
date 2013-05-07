@@ -20,17 +20,6 @@ I know, I know,... Some people are concerned when they see the `concerns` folder
 in your app. Read this to find out why I think they are useful anyways.
 
 
-#### [Controllers](pages/controllers.html)
-
-How to organize your controllers.
-
-
-#### [Measured response](pages/measured_response.html)
-
-How to find the right approach when it comes to mutating data:
-Rails magic, custom processing methods, service objects, etc.
-
-
 #### [Naming and organizing your user facing code](pages/naming_and_organizing_your_user_facing_code.html)
 
 Let use cases and roles drive how you organize and name your Controllers and Views.
@@ -42,7 +31,7 @@ Advanced return values for complex processing. Includes a success indicator,
 return value and user messages in a uniform interface.
 
 
-#### [Permissions and user roles](pages/permissions.html)
+#### [Permissions and user roles](pages/permissions_and_user_roles.html)
 
 How to manage user roles and permissions.
 

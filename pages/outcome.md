@@ -107,4 +107,6 @@ This is all there is to the Outcome.rb class:
 
 ### Credits
 
-This library is inspired by https://github.com/cypriss/mutations/blob/master/lib/mutations/outcome.rb
+This library is inspired by
+
+https://github.com/cypriss/mutations/blob/master/lib/mutations/outcome.rb
