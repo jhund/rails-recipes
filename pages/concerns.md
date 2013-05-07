@@ -27,18 +27,18 @@ Below I illustrate what such a refactor can look like:
 
 It is a junk drawer of methods, both AR specific and domain specific.
 It has > 1,000 LOC. It is a nightmare to step into.
-In our example, there are 4 concerns represented in the User model:
+In our example, there are methods representing 4 concerns:
 
 1. Users receive emails.
 2. Users have permissions.
 3. Users have presenters for display.
 4. Users have profile settings.
 
-Each concern is represented with an icon.
+Each icon in the diagram represents a method from one of the concerns.
 
 ### B: Slim model with concerns mixed in
 
-We have removed everything that is domain logic into cohesive concerns. We include
+We have removed all domain specific methods into cohesive concerns. We include
 these concerns into the AR User model, so at runtime nothing really changes.
 The User model still has all the same methods. These are the concerns we extracted:
 
@@ -57,11 +57,11 @@ Benefits:
 
 ### C: Testing a domain concern
 
-Now that your concern is contained in a cohesive package, you can take it and
-do things with it in isolation. E.g., testing it. Just include it into a `Test::User`
-class, stub a few dependencies, and now you can have very fast and simple
-unit tests. You don't need to satisfy everything that was part of the Fat User
-model in scenario A):
+Now that our concern is contained in a cohesive package, we can take it and
+do things with it in isolation. E.g., testing it. We just include it in a `Test::User`
+class, stub a few dependencies, and now we can have very fast and simple
+unit tests. We don't need to satisfy everything that was part of the Fat User
+model in scenario A:
 
 * AR validations
 * AR associations
@@ -70,6 +70,7 @@ model in scenario A):
 * file attachments with ImageMagick (Oh my...)
 * etc.
 
+We can test just the behavior around Permissions.
 
 More info on Concerns
 ---------------------
