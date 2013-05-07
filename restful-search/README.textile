@@ -1,5 +1,0 @@
-h1. Recipe: RESTful search for Rails
-
-This recipe shows you how to search, filter, and sort your resources in a restful way. It requires Rails 2.2 and works well with will_paginate.
-
-For more information please see the "ClearCove blog":http://clearcove.ca/blog/2008/12/recipe-restful-search-for-rails/

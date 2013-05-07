@@ -1,7 +1,0 @@
-h1. Rails Recipes
-
-This repository contains a number of recipes I developed for my Rails applications. Each recipe is documented as a sparse Rails app. That means I only show code that is relevant to the recipe. If you want to make them work, you still need a complete Rails app with all the standard files in it. I chose this format to draw the attention to the code essential to each recipe.
-
-* "Restful search":master/restful-search: Search, filter, sort, and paginate your resources.
-* "Request Environment":master/request-environment: store your request params (e.g. current user) in a way that is accessible to your models.
-* "Restful Permissions":master/restful-permissions: A clean and object oriented way to handle permissions in views and controllers.

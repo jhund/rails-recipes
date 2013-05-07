@@ -1,5 +1,0 @@
-h1. Rails Recipe: Request Environment
-
-This request tries to solve a problem in Rails where a very strict interpretation of the MVC pattern causes more problems than benefits in some cases.
-
-For more information please see the "ClearCove blog":http://clearcove.ca/blog/2008/08/recipe-make-request-environment-available-to-models-in-rails/
