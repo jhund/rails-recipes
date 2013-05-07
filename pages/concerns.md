@@ -93,7 +93,7 @@ Since Rails3 there is now a canonical way to include modules into Classes:
 `ActiveSupport::Concern`. Use it like so:
 
 ```ruby
-module MyMixin
+module User::HasPermissions
 
   extend ActiveSupport::Concern
 
@@ -115,9 +115,9 @@ end
 Then include it in a class you want to add the behavior to:
 
 ```ruby
-class ExtendedClass < ActiveRecord::Base
+class User < ActiveRecord::Base
 
-  include MyMixin
+  include User::HasPermissions
 
   ...
 
