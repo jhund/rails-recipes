@@ -1,8 +1,9 @@
 Ruby on Rails recipes
 ---------------------
 
-A collection of recipes for solid Ruby on Rails applications by Jo Hund.
-Extracted from 10,000+ hours of deliberate Ruby on Rails practice since 2005.
+A collection of recipes for solid Ruby on Rails applications. Extracted from
+dozens of production apps and 10,000+ hours of deliberate Ruby on Rails practice
+since 2005.
 
 Please see [http://rails-recipes.clearcove.ca](http://rails-recipes.clearcove.ca)
 for the rendered pages.

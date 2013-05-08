@@ -8,8 +8,10 @@ layout: default
   <h1>Ruby on Rails Recipes</h1>
 </div>
 
-This is a collection of recipes I have developed over the years building dozens
-of production Rails applications.
+A collection of recipes for solid Ruby on Rails applications. Extracted from
+dozens of production apps and 10,000+ hours of deliberate Ruby on Rails practice
+since 2005.
+
 
 The Recipes
 -----------

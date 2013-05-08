@@ -21,7 +21,12 @@ provide great value and clarity.
 
 Below I illustrate what such a refactor can look like:
 
-![How to use concerns to refactor and test a fat model](/images/concerns_progression.png)
+<p class="unconstrained">
+  <img src="/images/concerns_progression.png" alt="How to use concerns to refactor and test a fat model" class="img-polaroid" />
+  <div class="img_caption">
+    How to use concerns when refactoring a Fat Model.
+  </div>
+</p>
 
 ### A: Big fat legacy Rails ActiveRecord User model
 
