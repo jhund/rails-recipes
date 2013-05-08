@@ -43,6 +43,11 @@ How to manage user roles and permissions.
 Follow this style guide to make your code easy to read and reason about.
 
 
+### Source code
+
+The [source for Rails Recipes](https://github.com/jhund/rails-recipes) is on github.
+
+
 ### Credits
 
 This Ruby style guide started as a fork of Christian Neukirchen's Ruby Style guide.
