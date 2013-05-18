@@ -37,7 +37,7 @@ development:
   password: <%= ENV['POSTGRES_PASSWORD'] %>
 ```
 
-The Figaro gem is a great tool to manage your config:
+The [Figaro gem](https://github.com/laserlemon/figaro) is a great tool to manage your config:
 
 * Install the gem: `gem 'figaro'`
 * `rails generate figaro:install` - this will add a file `config/application.yml` 
