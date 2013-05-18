@@ -1,12 +1,13 @@
 ---
 layout: default
+nav_id: ruby_coding_style_guide
 ---
-
-{% include project_navigation.html %}
 
 <div class="page-header">
   <h2>Ruby coding style guide</h2>
 </div>
+
+{% include site_navigation.html %}
 
 Formatting
 ----------
@@ -103,11 +104,10 @@ p = Person.find_by_id(id) and p.update_last_seen_at
 * Use parentheses liberally. Omit them only in the simplest cases.
   They are helpful in breaking long lines and keeping row length under
   100 characters. Makes your ruby look a bit more like C.
-
-```ruby
-x = Math.sin(y)
-array.delete(e)
-```
+    ```ruby
+    x = Math.sin(y)
+    array.delete(e)
+    ```
 
 * Prefer `{...}` over `do...end`. Multiline `{...}` is fine: having different
   statement endings (`}` for blocks, `end` for if/while/...) makes it easier to
@@ -117,12 +117,11 @@ array.delete(e)
 * Avoid `return` where not required.
 * Using the return value of `=` is okay. Put parentheses around it to indicate
   that this is intentional:
-
-```ruby
-if (v = array.grep(/foo/))
-  # do something with v
-end
-```
+    ```ruby
+    if (v = array.grep(/foo/))
+      # do something with v
+    end
+    ```
 
 * when comparing two values, put the constant first. This will raise an error
   if you use `=` where you should have used `==`: `if "start" == state`.

@@ -1,12 +1,13 @@
 ---
 layout: default
+nav_id: javascript
 ---
-
-{% include project_navigation.html %}
 
 <div class="page-header">
   <h2>Javascript Recipes</h2>
 </div>
+
+{% include site_navigation.html %}
 
 // Further reading
 // ===============

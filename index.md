@@ -1,12 +1,13 @@
 ---
 layout: default
+nav_id: start_page
 ---
-
-{% include project_navigation.html %}
 
 <div class="page-header">
   <h1>Ruby on Rails Recipes</h1>
 </div>
+
+{% include site_navigation.html %}
 
 A collection of recipes for solid Ruby on Rails applications. Extracted from
 dozens of production apps and 10,000+ hours of deliberate Ruby on Rails practice

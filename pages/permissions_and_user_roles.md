@@ -1,13 +1,13 @@
 ---
 layout: default
+nav_id: permissions_and_user_roles
 ---
-
-{% include project_navigation.html %}
 
 <div class="page-header">
   <h2>Permissions and user roles</h2>
 </div>
 
+{% include site_navigation.html %}
 
 This pattern helps you manage permissions in your app in a simple and robust way.
 

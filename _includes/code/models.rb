@@ -14,18 +14,21 @@ class Project < ActiveRecord::Base
 
   # ActiveRecord callbacks
   # ----------------------
-  # AR callbacks should be used very sparingly and only
-  # for very simple applications like sanitizing attributes
-  # before saving them to the database, or to operations that
-  # are closely coupled to DB persistence.
+  # AR callbacks should be used very sparingly and only if they comply with the
+  # following rule:
+  # "Use a callback only when the logic refers to state internal to the object."
+  # In other words, there cannot be any external dependencies in the callback logic.
+  # More details:
+  # * http://samuelmullen.com/2013/05/the-problem-with-rails-callbacks/
+  # * http://blog.bignerdranch.com/1658-the-only-acceptable-use-for-callbacks-in-rails-ever/
   #
-  # It's also important to specify callbacks before associations in order for inheritance to work
-  # for the callback queues. Otherwise, you might trigger the loading of a child before the parent
-  # has registered the callbacks and they won’t be inherited. (From Rails' ActiveRecord::Callbacks
-  # documentation)
+  # It's also important to specify callbacks before associations in order for
+  # inheritance to work for the callback queues. Otherwise, you might trigger
+  # the loading of a child before the parent has registered the callbacks and
+  # they won’t be inherited. (From Rails' ActiveRecord::Callbacks documentation)
   #
-  # * Sort the callbacks as required by model logic and add a comment indicating why a callback's
-  #   position is important.
+  # Sort the callbacks as required by model logic and add a comment indicating
+  # why a callback's position is important.
   before_create :set_start_date # no dependencies, do this first
   before_save :update_duration # after set_start_date so we can use start date for calculation
 
@@ -33,14 +36,15 @@ class Project < ActiveRecord::Base
   # -------------------------
   # They tell us how this model interacts with other models.
   #
-  # * Sort the associations alphabetically, including the macro. Helps with detecting duplicates and
-  #   finding them.
+  # * Sort the associations alphabetically, including the macro.
+  #   Helps with detecting duplicates and finding them.
   # * Never go over 100 characters per line.
   # * Prefer has_many :through over has_and_belongs_to_many
-  # * Always spell out the :dependent option explicitly where it applies to prove that you have
-  #   thought about it.
+  # * Always spell out the :dependent option explicitly on has_many associations
+  #   to prove that you have thought about it.
   # * Always specify the :inverse_of option on associations.
-  #   Helps eliminating some strange bugs when traversing the object graph in-memory and making changes.
+  #   Helps eliminating some strange bugs when traversing the object graph
+  #   in-memory and making changes.
   #   Except on :as, :through and :polymorphic associations. Doesn't work on those.
   belongs_to :client, :inverse_of => :projects
   has_many :collaborators, :dependent => :nullify, :inverse_of => :project
@@ -60,8 +64,8 @@ class Project < ActiveRecord::Base
   #
   # * Sort scopes alphabetically
   # * Never go over 100 characters per line.
-  # * For complex scopes, put each element on a new line, put . on previous line to make
-  #   multi-line unambiguous for parser
+  # * For complex scopes, put each element on a new line, put . on previous line
+  #   to make multi-line unambiguous for parser
   scope :active, where(:state => "active")
   scope :sorted_by lambda { |sort_key|
     case sort_key

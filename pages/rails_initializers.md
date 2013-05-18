@@ -1,9 +1,10 @@
 ---
 layout: default
+nav_id: rails_initializers
 ---
-
-{% include project_navigation.html %}
 
 <div class="page-header">
   <h2>Rails initializers</h2>
 </div>
+
+{% include site_navigation.html %}

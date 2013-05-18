@@ -1,12 +1,13 @@
 ---
 layout: default
+nav_id: css
 ---
-
-{% include project_navigation.html %}
 
 <div class="page-header">
   <h2>CSS Recipes</h2>
 </div>
+
+{% include site_navigation.html %}
 
 // Further Reading
 // ---------------

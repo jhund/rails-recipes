@@ -1,12 +1,13 @@
 ---
 layout: default
+nav_id: naming_and_organizing_your_user_facing_code
 ---
-
-{% include project_navigation.html %}
 
 <div class="page-header">
   <h2>Naming and organizing your user facing code</h2>
 </div>
+
+{% include site_navigation.html %}
 
 This pattern helps you organize your Controller and View code with the following
 objectives in mind:

@@ -1,12 +1,13 @@
 ---
 layout: default
+nav_id: concerns
 ---
-
-{% include project_navigation.html %}
 
 <div class="page-header">
   <h2>Concerns</h2>
 </div>
+
+{% include site_navigation.html %}
 
 Rails has had great support for `Concerns` since version 3.
 There is a bit of controversy around this topic. I agree that in some cases

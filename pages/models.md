@@ -1,12 +1,13 @@
 ---
 layout: default
+nav_id: models
 ---
-
-{% include project_navigation.html %}
 
 <div class="page-header">
   <h2>Active Record Model Recipes</h2>
 </div>
+
+{% include site_navigation.html %}
 
 This page contains recipes relating to your ActiveRecord models. Please see the
 code comments for details:

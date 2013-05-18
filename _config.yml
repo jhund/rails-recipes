@@ -42,3 +42,20 @@ kramdown:
     coderay_tab_width: 4
     coderay_bold_every: 10
     coderay_css: style
+
+nav_items:
+- url: /pages/concerns.html
+  text: Concerns
+  nav_id: concerns
+- url: /pages/naming_and_organizing_your_user_facing_code.html
+  text: Naming and organizing your user facing code
+  nav_id: naming_and_organizing_your_user_facing_code
+- url: /pages/outcome.html
+  text: Outcome
+  nav_id: outcome
+- url: /pages/permissions_and_user_roles.html
+  text: Permissions and user roles
+  nav_id: permissions_and_user_roles
+- url: /pages/ruby_coding_style_guide.html
+  text: Ruby coding style guide
+  nav_id: ruby_coding_style_guide

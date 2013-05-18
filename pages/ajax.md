@@ -1,12 +1,13 @@
 ---
 layout: default
+nav_id: ajax
 ---
-
-{% include project_navigation.html %}
 
 <div class="page-header">
   <h2>AJAX Recipes</h2>
 </div>
+
+{% include site_navigation.html %}
 
 Areas to cover:
 

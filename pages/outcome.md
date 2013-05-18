@@ -1,12 +1,13 @@
 ---
 layout: default
+nav_id: outcome
 ---
-
-{% include project_navigation.html %}
 
 <div class="page-header">
   <h2>Outcome.rb</h2>
 </div>
+
+{% include site_navigation.html %}
 
 In multi-step operations, you want to be able to provide meaningful feedback
 to your users if something goes sideways.
