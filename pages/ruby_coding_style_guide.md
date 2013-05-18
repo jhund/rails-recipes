@@ -16,67 +16,65 @@ Formatting
 * End lines Unix-style (LF).
 * No line longer than 80 - 100 characters. Makes it possible to read code e.g. in
   version control diffs and ack search results.
-
 * Indent with 2 spaces. No tabs, ever. They make reading diffs hard.
-
 * Avoid indentation other than at the beginning of a line. It might look pretty
   at first sight, however it creates more work because a change to one line might
   affect all other lines. It makes it harder to spot the actual change in
   version control diffs.
 
-```ruby
-def do_this
-  {
-    :a => 1,
-    :very_long_hash_key => 2,
-    :medium => 3
-  }
-end
-
-def dont_do_this
-  {
-    :a                  => 1,
-    :very_long_hash_key => 2,
-    :medium             => 3
-  }
-end
-```
+    ```ruby
+    def do_this
+      {
+        :a => 1,
+        :very_long_hash_key => 2,
+        :medium => 3
+      }
+    end
+    
+    def dont_do_this
+      {
+        :a                  => 1,
+        :very_long_hash_key => 2,
+        :medium             => 3
+      }
+    end
+    ```
 
 * Put spaces around operators, after commas, colons and semicolons, around `{` and before `}`.
 
-```ruby
-1 + 3
-array = [1, 2, 3, 4]
-hash = { :a => 1, :b => 2, :c => 3 }
-"#{ interpolated_strings }"
-lambda { |args| also_for_blocks }
-```
+    ```ruby
+    1 + 3
+    array = [1, 2, 3, 4]
+    hash = { :a => 1, :b => 2, :c => 3 }
+    "#{ interpolated_strings }"
+    lambda { |args| also_for_blocks }
+    ```
 
 * No spaces after `(`, `[` and before `]`, `)`.
 
-```ruby
-method(1)
-hash[key]
-array = [1, 2, 3, 4]
-```
+    ```ruby
+    method(1)
+    hash[key]
+    array = [1, 2, 3, 4]
+    ```
 
 * Put two spaces before statement modifiers (postfix `if/unless/while/until/rescue`).
 
-```ruby
-"true"  if true
-"true"  unless false
-```
+    ```ruby
+    "true"  if true
+    "true"  unless false
+    ```
 
 * Indent `when` as deep as `case`.
 
-```ruby
-case arg
-when 1
-  do_1
-when 2
-  do_2
-end
-```
+    ```ruby
+    case arg
+    when 1
+      do_1
+    when 2
+      do_2
+    end
+    ```
 
 * Use YARD and its conventions for API documentation.  Don't put an empty line between
   the comment block and the def. [YARD info](http://yardoc.org/).
@@ -94,16 +92,17 @@ Syntax
   of thumb: If you have to use outer parentheses, you are using the
   wrong operators.)
 
-```ruby
-p = Person.find_by_id(id) or raise "Could not find person"
-p = Person.find_by_id(id) || Person.new
-p = Person.find_by_id(id) and p.update_last_seen_at
-```
+    ```ruby
+    p = Person.find_by_id(id) or raise "Could not find person"
+    p = Person.find_by_id(id) || Person.new
+    p = Person.find_by_id(id) and p.update_last_seen_at
+    ```
 
 * Avoid multiline `?:`, use `if`.
 * Use parentheses liberally. Omit them only in the simplest cases.
   They are helpful in breaking long lines and keeping row length under
   100 characters. Makes your ruby look a bit more like C.
+
     ```ruby
     x = Math.sin(y)
     array.delete(e)
@@ -117,6 +116,7 @@ p = Person.find_by_id(id) and p.update_last_seen_at
 * Avoid `return` where not required.
 * Using the return value of `=` is okay. Put parentheses around it to indicate
   that this is intentional:
+
     ```ruby
     if (v = array.grep(/foo/))
       # do something with v
@@ -125,7 +125,6 @@ p = Person.find_by_id(id) and p.update_last_seen_at
 
 * when comparing two values, put the constant first. This will raise an error
   if you use `=` where you should have used `==`: `if "start" == state`.
-
 * Use `||=` freely.
 * Use `w%[...]` notation for arrays that contain single word strings:
   `%w[project todo collaborator].each { |e| puts e }`.
@@ -150,7 +149,7 @@ Naming
     * v: any value
     * v: the value part of a hash entry
 
-Use `_` for unused variables: `def mock(_)`.
+* Use `_` for unused variables: `def mock(_)`.
 * When using inject with short blocks, name the arguments `|m, e|` (mnemonic: memo, each).
 * When defining binary operators, name the argument "other": `def +(other)`.
 * Prefer `map` over collect, `find` over `detect`, `find_all` over `select`.
