@@ -65,7 +65,7 @@ class Project < ActiveRecord::Base
   # * Sort scopes alphabetically
   # * Never go over 100 characters per line.
   # * For complex scopes, put each element on a new line, put . on previous line
-  #   to make multi-line unambiguous for parser
+  #   to make multi-line unambiguous for parser on Ruby prior to 1.9.
   scope :active, where(:state => "active")
   scope :sorted_by lambda { |sort_key|
     case sort_key
@@ -94,7 +94,8 @@ class Project < ActiveRecord::Base
   # Class Methods
   # -------------
   #
-  # I prefer the `def self.method_name` form. Shows the class context when looking at the method in isolation
+  # I prefer the `def self.method_name` form. Shows the class context when 
+  # looking at the method in isolation.
   # (e.g. as part of search results or symbol search in editor)
   def self.class_method_1
   end
@@ -109,21 +110,6 @@ class Project < ActiveRecord::Base
   end
 
   def instance_method_2(arg1)
-  end
-
-  # **Permissions**
-  #
-  # Permissions are all grouped together (both class and instance methods)
-  def self.listable_by?(actor)
-    actor.is_admin?
-  end
-
-  def updatable_by?(actor)
-    owned_by?(actor)
-  end
-
-  def owned_by?(actor)
-    actor == person
   end
 
   # **Protected Methods**: The `protected` keyword is not indented.
