@@ -23,6 +23,11 @@ I know, I know,... Some people are concerned when they see the `concerns` folder
 in your app. Read this to find out why I think they are useful anyways.
 
 
+#### [Configuration](pages/configuration.html)
+
+The best practice to configure your app: Use ENV variables. Works for clusters,
+different types of deployments, and in development mode.
+
 #### [Documentation](pages/documentation.html)
 
 Pretty much any serious Rails project will require some kind of documentation.

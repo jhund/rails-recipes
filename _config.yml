@@ -47,6 +47,9 @@ nav_items:
 - url: /pages/concerns.html
   text: Concerns
   nav_id: concerns
+- url: /pages/configuration.html
+  text: Configuration
+  nav_id: configuration
 - url: /pages/documentation.html
   text: Documentation
   nav_id: documentation
