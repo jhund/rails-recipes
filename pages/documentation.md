@@ -45,4 +45,5 @@ Here is an example `doc` folder:
       update_git_submodules.md
 ```
 
-Once the dev_notes grow too large, we move older ones into `doc/dev_notes/archive`.
+Once the dev_notes grow too large, we move older ones into `doc/dev_notes/archive`
+to keep our working set small and manageable.
