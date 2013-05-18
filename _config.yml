@@ -47,6 +47,9 @@ nav_items:
 - url: /pages/concerns.html
   text: Concerns
   nav_id: concerns
+- url: /pages/documentation.html
+  text: Documentation
+  nav_id: documentation
 - url: /pages/naming_and_organizing_your_user_facing_code.html
   text: Naming and organizing your user facing code
   nav_id: naming_and_organizing_your_user_facing_code
