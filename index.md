@@ -23,6 +23,12 @@ I know, I know,... Some people are concerned when they see the `concerns` folder
 in your app. Read this to find out why I think they are useful anyways.
 
 
+#### [Documentation](pages/documentation.html)
+
+Pretty much any serious Rails project will require some kind of documentation.
+Here is a set of conventions that have worked well for me.
+
+
 #### [Naming and organizing your user facing code](pages/naming_and_organizing_your_user_facing_code.html)
 
 Let use cases and roles drive how you organize and name your Controllers and Views.
