@@ -9,9 +9,9 @@ nav_id: how_to_change_objects
 
 {% include site_navigation.html %}
 
-Rails has some awesome magic that allows us to build apps very quickly. This
-approach is typically good at the initial stages of development, and for simple
-use cases. However for more complex scenarios, you should use Object Oriented
+Rails has some awesome magic that allows us to build apps very quickly. The Rails
+Way is very useful during the initial stages of development, and for simple
+use cases. However for more complex scenarios, I prefer to use Object Oriented
 best practices like Service Objects.
 
 The flow chart below helps you decide what the best approach is in a given
@@ -33,16 +33,16 @@ situation by looking at two criteria:
 
 ### How many objects will you change?
 
-In a change triggered by a web form, we look at the `params` data structure:
-Does it contain params for a single ActiveRecord object, or for multiple ones?
-Multiples could be for a collection of objects, or for a tree of objects.
+Are you working with input data for a single object, or for multiple ones? This
+criterion helps you decide whether to use regular resource forms, or nested
+forms.
 
 NOTE: We don't look at how many objects will eventually be affected. This is a
-question of processing complexity. Here we only look at the attrs in `params`.
+question of processing complexity.
 
 #### Change a single object
 
-Attributes for a single ActiveRecord instance are given.
+Attributes for a single object are given.
 
 #### Change multiple objects
 
@@ -61,13 +61,13 @@ All we do is change the attribute and nothing else.
 
 #### Simple processing
 
-We do some very simple processing around the change. E.g., sanitize some data
+We do some very simple processing around the change. E.g., we sanitize some data
 or compute some dependent values. ActiveRecord callbacks are suitable in this
 scenario, as long as they reference only internal state and no other objects.
 
 #### Complex processing
 
-Involves any of the following:
+Involves one or more of the following:
 
 * The process touches other objects.
 * The process uses a 3rd party service.
@@ -122,7 +122,7 @@ Use the vanilla Rails Way:
 
 Example scenario:
 
-> Before updating @user, strip whitespace from email, hash the password.
+> Before updating @user, strip whitespace from email, and hash the password.
 
 Use the vanilla Rails way and add ActiveRecord callbacks to the `User` model:
 
@@ -143,8 +143,8 @@ class User < ActiveRecord::Base
 end
 ```
 
-IMPORTANT: Callbacks should reference (i.e. read and write) internal state only
-and no external objects or services.
+IMPORTANT: Callbacks should use internal state only. There should be **NO**
+references (read or write) to external objects or services.
 
 More information on callbacks:
 
