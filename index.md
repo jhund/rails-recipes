@@ -28,10 +28,17 @@ in your app. Read this to find out why I think they are useful anyways.
 The best practice to configure your app: Use ENV variables. Works for clusters,
 different types of deployments, and in development mode.
 
+
 #### [Documentation](pages/documentation.html)
 
 Pretty much any serious Rails project will require some kind of documentation.
 Here is a set of conventions that have worked well for me.
+
+
+#### [How to change objects](pages/how_to_change_objects.html)
+
+This guide helps you decide on the right approach when changing data. It's about
+Rails magic vs. Object Oriented best practices.
 
 
 #### [Naming and organizing your user facing code](pages/naming_and_organizing_your_user_facing_code.html)

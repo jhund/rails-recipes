@@ -1,0 +1,245 @@
+---
+layout: default
+nav_id: how_to_change_objects
+---
+
+<div class="page-header">
+  <h2>How to change objects</h2>
+</div>
+
+{% include site_navigation.html %}
+
+Rails has some awesome magic that allows us to build apps very quickly. This
+approach is typically good at the initial stages of development, and for simple
+use cases. However for more complex scenarios, you should use Object Oriented
+best practices like Service Objects.
+
+The flow chart below helps you decide what the best approach is in a given
+situation by looking at two criteria:
+
+> * How many objects will you change?
+> * What additional processing is required?
+
+<p class="unconstrained">
+  <img src="/images/how_to_change_objects.png" alt="Flow chart for how to change objects" class="img-polaroid" />
+<p>
+
+<div class="side_note_right" style="width: auto;">
+  <a href="/images/how_to_change_objects_in_rails.pdf">
+    Download the guide as PDF<br/>
+    <img src="/images/how_to_change_objects_in_rails_pdf_thumbnail.png" alt="Flow chart for how to change objects" class="img-polaroid" />
+  </a>
+</div>
+
+### How many objects will you change?
+
+In a change triggered by a web form, we look at the `params` data structure:
+Does it contain params for a single ActiveRecord object, or for multiple ones?
+Multiples could be for a collection of objects, or for a tree of objects.
+
+NOTE: We don't look at how many objects will eventually be affected. This is a
+question of processing complexity. Here we only look at the attrs in `params`.
+
+#### Change a single object
+
+Attributes for a single ActiveRecord instance are given.
+
+#### Change multiple objects
+
+Attributes for multiple objects are given. E.g., changing a user
+and some of the user's projects with a single form submission.
+
+### What additional processing is required?
+
+This question is concerned with the complexity of the change. E.g., what else
+needs to be done as a consequence of this change? What other resources are
+involved?
+
+#### No additional processing
+
+All we do is change the attribute and nothing else.
+
+#### Simple processing
+
+We do some very simple processing around the change. E.g., sanitize some data
+or compute some dependent values. ActiveRecord callbacks are suitable in this
+scenario, as long as they reference only internal state and no other objects.
+
+#### Complex processing
+
+Involves any of the following:
+
+* The process touches other objects.
+* The process uses a 3rd party service.
+* There are multiple processing steps and a few places in the process where
+  things can go wrong.
+* There are several possible paths to take during the process, depending on
+  the input data.
+
+The various approaches
+----------------------
+
+### Rails magic
+
+Example scenario:
+
+> Update @user.accepted_tos after user accepts Terms of Service.
+
+Use the vanilla Rails Way:
+
+* A standard `User` class that inherits from ActiveRecord:
+
+    ```ruby
+    # app/models/user.rb
+    class User < ActiveRecord::Base
+    end
+    ```
+* A standard resource form:
+
+    ```erb
+    <%# app/views/users/edit.html.erb %>
+    <% form_for @user do |f| %>
+      <%= f.check_box :accepted_tos %> I accept the Terms of Service
+    <% end %>
+    ```
+* A standard RESTful controller:
+
+    ```ruby
+    # app/controllers/users_controller.rb
+    class UserController < ApplicationController
+      def update
+        @user = User.find(params[:id])
+        if @user.update_attributes(params[:user])
+          redirect_to user_path(@user)
+        else
+          render :action => 'edit'
+        end
+      end
+    end
+    ```
+
+### ActiveRecord callbacks
+
+Example scenario:
+
+> Before updating @user, strip whitespace from email, hash the password.
+
+Use the vanilla Rails way and add ActiveRecord callbacks to the `User` model:
+
+```ruby
+# app/models/user.rb
+class User < ActiveRecord::Base
+
+  before_save :strip_whitespace_from_email
+  before_save :hash_password
+
+  def strip_whitespace_from_email
+    ...
+  end
+
+  def hash_password
+    ...
+  end
+end
+```
+
+IMPORTANT: Callbacks should reference (i.e. read and write) internal state only
+and no external objects or services.
+
+More information on callbacks:
+
+* Rails API: [ActiveRecord::Callbacks](http://api.rubyonrails.org/classes/ActiveRecord/Callbacks.html)
+* [The Problem with Rails Callbacks](http://samuelmullen.com/2013/05/the-problem-with-rails-callbacks/)
+
+
+### ActiveRecord nested attributes
+
+Example scenario:
+
+> Update @user and delete some of @user's projects.
+
+Use the vanilla Rails way and add ActiveRecord nested attributes to the `User`
+model and the form:
+
+```ruby
+# app/models/user.rb
+class User < ActiveRecord::Base
+
+  has_many :projects, :dependent => :destroy
+  accepts_nested_attributes_for :projects, :allow_destroy => true
+
+end
+```
+
+```erb
+<%# app/views/users/edit.html.erb %>
+<% form_for @user do |f| %>
+  <%= f.check_box :accepted_tos %>
+  <%= f.fields_for :projects do |project_fields| %>
+    Name: <%= project_fields.text_field :name %>
+    <%= project_fields.check_box :_destroy %> Delete
+  <% end %>
+<% end %>
+```
+
+More information on nested attributes:
+
+* Rails API: [ActiveRecord::NestedAttributes::ClassMethods](http://api.rubyonrails.org/classes/ActiveRecord/NestedAttributes/ClassMethods.html)
+* Rails API: [ActionView::Helpers::FormHelper#fields_for](http://api.rubyonrails.org/classes/ActionView/Helpers/FormHelper.html#method-i-fields_for)
+* [Complex Rails Forms with Nested Attributes](http://rubysource.com/complex-rails-forms-with-nested-attributes/)
+
+### Service Object
+
+Example scenario:
+
+> Import several users and their projects from a spreadsheet.
+
+Create a Service Object for importing users and use it for the form and controller:
+
+```ruby
+# app/models/user/import.rb
+class User::Import
+
+  def initialize(attrs)
+    # initialize the object with all attrs required
+  end
+
+  def do_it
+    # perform the actual import:
+    sanitize_input_attrs
+    create_users_and_projects
+  end
+
+end
+```
+
+More information on Service Objects:
+
+* [7 Patterns to Refactor Fat ActiveRecord Models](http://blog.codeclimate.com/blog/2012/10/17/7-ways-to-decompose-fat-activerecord-models/).
+* [Service Objects: What They Are, and When to Use Them](http://stevelorek.com/service-objects.html).
+* [Service classes as an alternative to observers/callbacks](http://solnic.eu/2012/07/09/single-responsibility-principle-on-rails-explained.html)
+
+Other scenarios to consider
+-----------------
+
+* How to handle AR touch `updated_at` column on `belongs_to`
+* Isolate ActiveRecord for fast tests.
+* Message queues for asynchronous workers.
+* outcome.rb for complex return values
+* Is there any place for `after_...` AR callbacks? Are they a code smell?
+
+Further reading
+---------------
+
+* [7 Patterns to Refactor Fat ActiveRecord Models](http://blog.codeclimate.com/blog/2012/10/17/7-ways-to-decompose-fat-activerecord-models/).
+* [Service Objects: What They Are, and When to Use Them](http://stevelorek.com/service-objects.html).
+* [Rails, Models and Business Logic via wekeroad.com](http://wekeroad.com/2011/10/14/rails-models-and-business-logic)
+* [an experimental approach to presenters, interactors and repositories](https://github.com/jasonroelofs/raidit)
+* [Mutations: Putting SOA on Rails for security and maintainability](https://developer.uservoice.com/blog/2013/02/27/introducing-mutations-putting-soa-on-rails-for-security-and-maintainability/)
+* [5 simple rules to good OO in Rails](http://thunderboltlabs.com/posts/5-simple-rules-to-good-oo-in-rails)
+* [DCI, Concerns and Readable Code](http://blog.codeclimate.com/blog/2012/12/19/dci-concerns-and-readable-code/)
+* [Models, Roles, Decorators, and Interactions -- A modest proposal for a toned done version of DCI that isn't as janky as Concerns.](https://gist.github.com/4341122)
+* [The Tortoise and the Hare: Hexagonal Rails and Service Objects](http://www.foobarsoftwares.com/the_tortoise_and_the_hare)
+* [Service classes as an alternative to observers/callbacks](http://solnic.eu/2012/07/09/single-responsibility-principle-on-rails-explained.html)
+* [Architecture the Lost Years - Robert Martin](http://confreaks.com/videos/759-rubymidwest2011-keynote-architecture-the-lost-years)
+* [How to Stop Using Nested Forms](http://matthewrobertson.org/blog/2012/09/20/decoupling-rails-forms-from-the-database/)
