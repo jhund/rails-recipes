@@ -87,22 +87,22 @@ Example scenario:
 
 Use the vanilla Rails Way:
 
-* A standard `User` class that inherits from ActiveRecord:
+* Model: A standard ActiveRecord based class:
 
     ```ruby
     # app/models/user.rb
     class User < ActiveRecord::Base
     end
     ```
-* A standard resource form:
+* View: A standard resource form:
 
     ```erb
     <%# app/views/users/edit.html.erb %>
     <% form_for @user do |f| %>
-      <%= f.check_box :accepted_tos %> I accept the Terms of Service
+      <%= f.check_box :accepted_tos %> I accept the ToS
     <% end %>
     ```
-* A standard RESTful controller:
+* Controller: A standard RESTful controller:
 
     ```ruby
     # app/controllers/users_controller.rb
@@ -122,29 +122,29 @@ Use the vanilla Rails Way:
 
 Example scenario:
 
-> Before updating @user, strip whitespace from email, and hash the password.
+> Before updating @user, strip whitespace from email.
 
-Use the vanilla Rails way and add ActiveRecord callbacks to the `User` model:
+Use the vanilla Rails way with ActiveRecord callbacks:
 
-```ruby
-# app/models/user.rb
-class User < ActiveRecord::Base
+* Model: A standard ActiveRecord based class with callbacks.
 
-  before_save :strip_whitespace_from_email
-  before_save :hash_password
+  IMPORTANT: Callbacks should use internal state only. There should be **NO**
+  references (read or write) to external objects or services.
 
-  def strip_whitespace_from_email
-    ...
-  end
+    ```ruby
+    # app/models/user.rb
+    class User < ActiveRecord::Base
 
-  def hash_password
-    ...
-  end
-end
-```
+      before_save :strip_whitespace_from_email
 
-IMPORTANT: Callbacks should use internal state only. There should be **NO**
-references (read or write) to external objects or services.
+      def strip_whitespace_from_email
+        self.email = email.strip
+      end
+
+    end
+    ```
+* View: A standard resource form for @user
+* Controller: A standard RESTful controller for @user
 
 More information on callbacks:
 
@@ -158,29 +158,32 @@ Example scenario:
 
 > Update @user and delete some of @user's projects.
 
-Use the vanilla Rails way and add ActiveRecord nested attributes to the `User`
-model and the form:
+Use the vanilla Rails way with nested attributes:
 
-```ruby
-# app/models/user.rb
-class User < ActiveRecord::Base
+* Model: A standard ActiveRecord based class with nested attributes:
 
-  has_many :projects, :dependent => :destroy
-  accepts_nested_attributes_for :projects, :allow_destroy => true
+    ```ruby
+    # app/models/user.rb
+    class User < ActiveRecord::Base
 
-end
-```
+      has_many :projects, :dependent => :destroy
+      accepts_nested_attributes_for :projects, :allow_destroy => true
 
-```erb
-<%# app/views/users/edit.html.erb %>
-<% form_for @user do |f| %>
-  <%= f.check_box :accepted_tos %>
-  <%= f.fields_for :projects do |project_fields| %>
-    Name: <%= project_fields.text_field :name %>
-    <%= project_fields.check_box :_destroy %> Delete
-  <% end %>
-<% end %>
-```
+    end
+    ```
+* View: A standard resource form with `fields_for`:
+
+    ```erb
+    <%# app/views/users/edit.html.erb %>
+    <% form_for @user do |f| %>
+      <%= f.check_box :accepted_tos %>
+      <%= f.fields_for :projects do |project_fields| %>
+        Name: <%= project_fields.text_field :name %>
+        <%= project_fields.check_box :_destroy %> Delete
+      <% end %>
+    <% end %>
+    ```
+* Controller: A standard RESTful controller for @user.
 
 More information on nested attributes:
 
@@ -196,22 +199,42 @@ Example scenario:
 
 Create a Service Object for importing users and use it for the form and controller:
 
-```ruby
-# app/models/user/import.rb
-class User::Import
+* Model: A PORO (Plain Old Ruby Object) service object:
 
-  def initialize(attrs)
-    # initialize the object with all attrs required
-  end
+    ```ruby
+    # app/models/user_import.rb
+    class UserImport
 
-  def do_it
-    # perform the actual import:
-    sanitize_input_attrs
-    create_users_and_projects
-  end
+      def initialize(attrs)
+        # initialize the object with all attrs required
+      end
 
-end
-```
+      def do_it
+        # perform the actual import:
+        sanitize_input_attrs
+        create_users_and_projects
+      end
+
+    end
+    ```
+* View: A resource view for the service object:
+
+    ```erb
+    <%# app/views/user_imports/new.html.erb %>
+    <% form_for @user_import do |f| %>
+      Spreadsheet to import: <%= f.file_field :user_list %>
+    <% end %>
+    ```
+* Controller: A RESTful controller for the service object:
+
+    ```ruby
+    class UserImportsController < ApplicationController
+
+      def create
+      end
+
+    end
+    ```
 
 More information on Service Objects:
 
