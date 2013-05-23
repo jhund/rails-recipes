@@ -61,35 +61,20 @@ How to manage user roles and permissions.
 
 Follow this style guide to make your code easy to read and reason about.
 
+<hr/>
 
-### Source code
+<div class="row">
+  <div class="span5">
+    <h3>Resources</h3>
+    <ul>
+      <li><a href="http://rails-recipes.clearcove.ca">This Documentation</a>
+      <li><a href="https://github.com/jhund/rails-recipes">Source code</a>
+      <li><a href="https://github.com/jhund/rails-recipes/issues">Issues</a>
+    </ul>
+  </div>
 
-The [source for Rails Recipes](https://github.com/jhund/rails-recipes) is on github.
-
-
-### Credits
-
-This Ruby style guide started as a fork of Christian Neukirchen's Ruby Style guide.
-It has since evolved into a larger body of content.
-
-
-### License
-
-MIT licensed
-
-
-
-### Note on Patches/Pull Requests
-
-* Fork the project.
-* Make your feature addition or bug fix.
-* Add tests for it. This is important so I don't break it in a future version unintentionally.
-* Commit, do not mess with rakefile, version, or history.
-  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
-* Send me a pull request. Bonus points for topic branches.
-
-
-
-### Copyright
-
-Copyright (c) 2010 - 2013 Jo Hund. MIT LICENSED
+  <div class="span5">
+    <h3>Copyright</h3>
+    Copyright (c) 2010 - 2013 Jo Hund.
+  </div>
+</div>

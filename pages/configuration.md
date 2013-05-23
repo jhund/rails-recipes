@@ -11,6 +11,7 @@ nav_id: configuration
 
 Every Rails app requires some kind of configuration:
 
+* Rails Secret Token
 * database connection params
 * 3rd party API keys
 * exception notification recipients
@@ -40,7 +41,7 @@ development:
 The [Figaro gem](https://github.com/laserlemon/figaro) is a great tool to manage your config:
 
 * Install the gem: `gem 'figaro'`
-* `rails generate figaro:install` - this will add a file `config/application.yml` 
+* `rails generate figaro:install` - this will add a file `config/application.yml`
   which is ignored by git.
 * add all your configuration parameters to `config/application.yml`.
 * when your app boots up, all required ENV vars will be initialized.
