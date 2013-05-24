@@ -4,10 +4,9 @@ nav_id: outcome
 ---
 
 <div class="page-header">
+  {% include site_navigation.html %}
   <h2>Outcome.rb</h2>
 </div>
-
-{% include site_navigation.html %}
 
 In multi-step operations, you want to be able to provide meaningful feedback
 to your users if something goes sideways.
@@ -22,27 +21,23 @@ method back to the user. An Outcome instance has the following attributes:
 How to use it in your app
 -------------------------
 
-In this example we create a `Purchase` instance in the store workspace. Creating
-a purchase is a fairly complex process that involves several other ActiveRecord
-models, as well as API calls to 3rd party services. A lot that can go wrong.
+In this example we use a PurchaseTransaction Service Object to handle a user's
+purchase in our online store. Processing a purchase is a fairly complex process
+that involves several other ActiveRecord models, as well as API calls to 3rd
+party services. A lot that can go wrong.
 
 So we wrap the entire process into a method and call that single method from
 our controller. The @outcome instance will contain detailed messaging if something
 went wrong, and how to fix it.
 
 ```ruby
-# app/controllers/store/purchases_controller.rb
-class Store::PurchasesController < Store::BaseController
+# app/controllers/purchase_transactions_controller.rb
+class PurchaseTransactionsController < ApplicationController
 
   ...
 
   def create
-    # Handle complex process in dedicated Processor class.
-    @outcome = Purchase::Processor.create(
-      params[:purchase],
-      current_user,
-      :as => :store
-    )
+    @outcome = PurchaseTransaction.create(params[:purchase])
 
     respond_to do |format|
       format.html {
@@ -68,11 +63,11 @@ end
 ```
 
 ```ruby
-# app/models/purchase/processor.rb
-class Purchase::Processor
+# app/models/purchase_transaction.rb
+class PurchaseTransaction
 
   # Creates a new purchase
-  def self.create(params, actor, role)
+  def self.create(params)
     # initialize outcome attrs
     l_success = true
     l_messages = []
@@ -109,5 +104,4 @@ This is all there is to the Outcome.rb class:
 ### Credits
 
 This library is inspired by
-
-https://github.com/cypriss/mutations/blob/master/lib/mutations/outcome.rb
+[Mutations](https://github.com/cypriss/mutations/blob/master/lib/mutations/outcome.rb).

@@ -4,23 +4,21 @@ nav_id: concerns
 ---
 
 <div class="page-header">
+  {% include site_navigation.html %}
   <h2>Concerns</h2>
 </div>
-
-{% include site_navigation.html %}
 
 Rails has had great support for `Concerns` since version 3.
 There is a bit of controversy around this topic. I agree that in some cases
 it's better to use composition than mixing in modules.
 
-However in many cases where you just can't take the golden path because of some
+However in many cases where you just can't refactor the entire app because of some
 constraints you are subject to, it makes perfect sense to re-organize your fat
 model into concerns that are both cohesive and have a single responsibility.
 
 The nice thing about concerns is that it's a very low risk refactor that can
-provide great value and clarity.
-
-Below I illustrate what such a refactor can look like:
+provide great value and clarity, and can also be a stepping stone towards a
+better class structure. Below I illustrate what such a refactor can look like:
 
 <p class="unconstrained">
   <img src="/images/concerns_progression.png" alt="How to use concerns to refactor and test a fat model" class="img-polaroid" />
@@ -29,9 +27,9 @@ Below I illustrate what such a refactor can look like:
   </div>
 </p>
 
-### A: Big fat legacy Rails ActiveRecord User model
+### A: Fat model
 
-It is a junk drawer of methods, both AR specific and domain specific.
+It is a junk drawer of methods, both ActiveRecord specific and domain specific.
 It has > 1,000 LOC. It is a nightmare to step into.
 In our example, there are methods representing 4 concerns:
 
@@ -42,7 +40,7 @@ In our example, there are methods representing 4 concerns:
 
 Each icon in the diagram represents a method from one of the concerns.
 
-### B: Slim model with concerns mixed in
+### B: AR model with domain concerns mixed in
 
 We have removed all domain specific methods into cohesive concerns. We include
 these concerns into the AR User model, so at runtime nothing really changes.
@@ -61,7 +59,7 @@ Benefits:
   behavior. This is a very low risk and high yield refactor.
 * You can re-use behavior more easily between classes.
 
-### C: Testing a domain concern
+### C: Testing a single domain concern in isolation
 
 Now that our concern is contained in a cohesive package, we can take it and
 do things with it in isolation. E.g., testing it. We just include it in a `Test::User`
@@ -69,9 +67,9 @@ class, stub a few dependencies, and now we can have very fast and simple
 unit tests. We don't need to satisfy everything that was part of the Fat User
 model in scenario A:
 
-* AR validations
-* AR associations
-* AR call_backs
+* ActiveRecord validations
+* ActiveRecord associations
+* ActiveRecord call_backs
 * state_machines
 * file attachments with ImageMagick (Oh my...)
 * etc.

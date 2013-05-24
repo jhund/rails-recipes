@@ -4,17 +4,16 @@ nav_id: configuration
 ---
 
 <div class="page-header">
+  {% include site_navigation.html %}
   <h2>Configuration</h2>
 </div>
-
-{% include site_navigation.html %}
 
 Every Rails app requires some kind of configuration:
 
 * Rails Secret Token
-* database connection params
+* Database connection params
 * 3rd party API keys
-* exception notification recipients
+* Exception notification recipients
 * ...
 
 Most of these should never be tracked in source control. So what do you do?
@@ -33,7 +32,7 @@ development:
   adapter: postgresql
   encoding: unicode
   database: <%= ENV['POSTGRES_DATABSE'] %>
-  pool:     <%= ENV['POSGRES_POOLSIZE'] %>
+  pool:     <%= ENV['POSTGRES_POOLSIZE'] %>
   username: <%= ENV['POSTGRES_USERNAME'] %>
   password: <%= ENV['POSTGRES_PASSWORD'] %>
 ```

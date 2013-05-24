@@ -4,10 +4,9 @@ nav_id: documentation
 ---
 
 <div class="page-header">
+  {% include site_navigation.html %}
   <h2>Documentation</h2>
 </div>
-
-{% include site_navigation.html %}
 
 Pretty much any serious Rails project will require some kind of documentation
 that reminds us of:

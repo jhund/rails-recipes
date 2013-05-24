@@ -4,10 +4,9 @@ nav_id: naming_and_organizing_your_user_facing_code
 ---
 
 <div class="page-header">
+  {% include site_navigation.html %}
   <h2>Naming and organizing your user facing code</h2>
 </div>
-
-{% include site_navigation.html %}
 
 This pattern helps you organize your Controller and View code with the following
 objectives in mind:
@@ -17,8 +16,7 @@ objectives in mind:
   app does.
 * Eliminate conditionals in your controllers and views as much as possible to
   make your code easy to reason about and so simple that you don't really need
-  tests.
-* We're trading a bit of duplication for super simple views.
+  tests. (We're trading a bit of duplication for simplicity of code.)
 
 Benefits:
 
@@ -48,7 +46,7 @@ These five roles cover every use case of the app. We use them to organize our
 code at the top level. These are concerns that are unlikely to change. These
 roles have probably existed in your client's organization for a long time, and
 it might require years of negotiations with the Union to change them. So they
-are a prime candidate as the primary category for organizing your codes.
+are a prime candidate as the primary category for organizing your code.
 
 
 Alternative categorization dimensions:

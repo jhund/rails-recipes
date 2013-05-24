@@ -4,10 +4,9 @@ nav_id: ruby_coding_style_guide
 ---
 
 <div class="page-header">
+  {% include site_navigation.html %}
   <h2>Ruby coding style guide</h2>
 </div>
-
-{% include site_navigation.html %}
 
 Formatting
 ----------
@@ -30,7 +29,7 @@ Formatting
         :medium => 3
       }
     end
-    
+
     def dont_do_this
       {
         :a                  => 1,

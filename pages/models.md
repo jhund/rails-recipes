@@ -4,10 +4,9 @@ nav_id: models
 ---
 
 <div class="page-header">
+  {% include site_navigation.html %}
   <h2>Active Record Model Recipes</h2>
 </div>
-
-{% include site_navigation.html %}
 
 This page contains recipes relating to your ActiveRecord models. Please see the
 code comments for details:

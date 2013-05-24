@@ -4,10 +4,10 @@ nav_id: how_to_change_objects
 ---
 
 <div class="page-header">
+  {% include site_navigation.html %}
   <h2>How to change objects</h2>
 </div>
 
-{% include site_navigation.html %}
 
 Rails has some awesome magic that allows us to build apps very quickly. The Rails
 Way is very useful during the initial stages of development, and for simple
@@ -22,7 +22,7 @@ situation by looking at two criteria:
 
 <p class="unconstrained">
   <img src="/images/how_to_change_objects.png" alt="Flow chart for how to change objects" class="img-polaroid" />
-<p>
+</p>
 
 <div class="side_note_right" style="width: auto;">
   <a href="/images/how_to_change_objects_in_rails.pdf">
@@ -37,8 +37,8 @@ Are you working with input data for a single object, or for multiple ones? This
 criterion helps you decide whether to use regular resource forms, or nested
 forms.
 
-NOTE: We don't look at how many objects will eventually be affected. This is a
-question of processing complexity.
+NOTE: We don't look at how many objects will eventually be affected; that will
+be dealt with under additional processing.
 
 #### Change a single object
 
@@ -124,12 +124,21 @@ Example scenario:
 
 > Before updating @user, strip whitespace from email.
 
-Use the vanilla Rails way with ActiveRecord callbacks:
+Use the vanilla Rails way with ActiveRecord callbacks.
+
+<div class="alert">
+  <p><strong>Important!</strong></p>
+  <p>
+    Callbacks should use internal state only. There should be NO
+    references (read or write) to external objects or services.
+  </p>
+  <p>
+    Read this blog post for more information:
+    <a href="http://samuelmullen.com/2013/05/the-problem-with-rails-callbacks/">The Problem with Rails Callbacks</a>
+  </p>
+</div>
 
 * Model: A standard ActiveRecord based class with callbacks.
-
-  IMPORTANT: Callbacks should use internal state only. There should be **NO**
-  references (read or write) to external objects or services.
 
     ```ruby
     # app/models/user.rb
@@ -167,7 +176,8 @@ Use the vanilla Rails way with nested attributes:
     class User < ActiveRecord::Base
 
       has_many :projects, :dependent => :destroy
-      accepts_nested_attributes_for :projects, :allow_destroy => true
+      accepts_nested_attributes_for :projects,
+                                    :allow_destroy => true
 
     end
     ```
@@ -197,24 +207,18 @@ Example scenario:
 
 > Import several users and their projects from a spreadsheet.
 
-Create a Service Object for importing users and use it for the form and controller:
+Create a Service Object for importing users and use it for the form and
+controller. Please see
+[7 Patterns to Refactor Fat ActiveRecord Models](http://blog.codeclimate.com/blog/2012/10/17/7-ways-to-decompose-fat-activerecord-models/)
+for more information on how to use Service Objects.
 
 * Model: A PORO (Plain Old Ruby Object) service object:
 
     ```ruby
     # app/models/user_import.rb
     class UserImport
-
-      def initialize(attrs)
-        # initialize the object with all attrs required
-      end
-
-      def do_it
-        # perform the actual import:
-        sanitize_input_attrs
-        create_users_and_projects
-      end
-
+      # Please see the linke above for more information
+      # on Service Objects.
     end
     ```
 * View: A resource view for the service object:
@@ -229,12 +233,12 @@ Create a Service Object for importing users and use it for the form and controll
 
     ```ruby
     class UserImportsController < ApplicationController
-
-      def create
-      end
-
+      # Use regular REST actions on the Service Object.
     end
     ```
+    Note: If there are several possible outcomes, or several places
+    where things can go wrong, then you might consider using
+    [Outcome.rb](/pages/outcome.html) as the Service Object's return value.
 
 More information on Service Objects:
 

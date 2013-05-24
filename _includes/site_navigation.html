@@ -1,38 +1,21 @@
-<div class="marginalia_right tabbable tabs-right">
-  <ul class="nav nav-tabs">
-    {% assign css_class = nil %}
-    {% if 'start_page' == page.nav_id %}
-      {% assign css_class = 'active' %}
-    {% endif %}
-    <li class="{{ css_class }}">
-      <a href="/">Start page</a>
-    </li>
-    {% for nav_item in site.nav_items %}
-      {% if page.nav_id == nav_item.nav_id %}
-        <li class="active">
-          <a href="{{ nav_item.url }}">{{ nav_item.text | truncate: 20 }}</a>
-        </li>
-      {% endif %}
-    {% endfor %}
+<div class="marginalia_right well well-small" style="background-color: #e1f0ff;">
+  <ul class="nav nav-list">
     <li class="dropdown">
       <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-        Recipes index
+        Recipes index ...
         <b class="caret bottom-up"></b>
       </a>
-      <ul class="dropdown-menu bottom-up pull-right">  
+      <ul class="dropdown-menu bottom-up pull-right">
         {% for nav_item in site.nav_items %}
           {% assign css_class = nil %}
-          {% if 'start_page' == nav_item.nav_id %}
+          {% if page.nav_id == nav_item.nav_id %}
             {% assign css_class = 'active' %}
-            <li class="{{ css_class }}">
-              <a href="{{ nav_item.url }}">{{ nav_item.text }}</a>
-            </li>
           {% endif %}
           <li class="{{ css_class }}">
             <a href="{{ nav_item.url }}">{{ nav_item.text }}</a>
           </li>
         {% endfor %}
-      </ul>  
+      </ul>
     </li>
   </ul>
 </div>
