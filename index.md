@@ -33,7 +33,7 @@ Here is a set of conventions that have worked well for me.
 
 #### [How to change objects](pages/how_to_change_objects.html)
 
-This guide helps you decide on the right approach when changing data. It's about
+This flowchart helps you decide on the right approach when changing data. It's about
 Rails magic vs. Object Oriented best practices.
 
 

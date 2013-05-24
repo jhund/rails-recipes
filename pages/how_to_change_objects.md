@@ -14,8 +14,8 @@ Way is very useful during the initial stages of development, and for simple
 use cases. However for more complex scenarios, I prefer to use Object Oriented
 best practices like Service Objects.
 
-The flow chart below helps you decide what the best approach is in a given
-situation by looking at two criteria:
+The flow chart below helps you choose the best approach in a given situation
+by looking at two criteria:
 
 > * How many objects will you change?
 > * What additional processing is required?
