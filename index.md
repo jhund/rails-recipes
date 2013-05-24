@@ -10,11 +10,8 @@ nav_id: start_page
 
 A collection of recipes for solid Ruby on Rails applications. Extracted from
 dozens of production apps and 10,000+ hours of deliberate Ruby on Rails practice
-since 2005.
+since 2005:
 
-
-The Recipes
------------
 
 #### [Concerns](pages/concerns.html)
 
