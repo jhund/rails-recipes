@@ -8,13 +8,16 @@ nav_id: how_to_change_objects
   <h2>How to change objects</h2>
 </div>
 
+This recipe helps you find the best approach for mutating object state in a Rails
+app. It covers the whole pipeline from ActiveRecord views, through controller and
+the model.
 
 Rails has some awesome magic that allows us to build apps very quickly. The Rails
 Way is very useful during the initial stages of development, and for simple
 use cases. However for more complex scenarios, I prefer to use Object Oriented
 best practices like Service Objects.
 
-The flow chart below helps you choose the best approach in a given situation
+The flow chart below helps you choose the best approach for mutating object state
 by looking at two criteria:
 
 > * How many objects will you change?
@@ -246,13 +249,14 @@ More information on Service Objects:
 * [Service Objects: What They Are, and When to Use Them](http://stevelorek.com/service-objects.html).
 * [Service classes as an alternative to observers/callbacks](http://solnic.eu/2012/07/09/single-responsibility-principle-on-rails-explained.html)
 
-Other scenarios to consider
------------------
+Related concepts
+----------------
 
 * How to handle AR touch `updated_at` column on `belongs_to`
 * Isolate ActiveRecord for fast tests.
 * Message queues for asynchronous workers.
-* outcome.rb for complex return values
+* State machines
+* Outcome.rb for complex return values
 * Is there any place for `after_...` AR callbacks? Are they a code smell?
 
 Further reading
