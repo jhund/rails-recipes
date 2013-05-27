@@ -9,8 +9,8 @@ nav_id: how_to_change_objects
 </div>
 
 This recipe helps you find the best approach for mutating object state in a Rails
-app. It covers the whole pipeline from ActiveRecord views, through controller and
-the model.
+app. It covers the whole pipeline from the view, through the controller all the
+way to the model.
 
 Rails has some awesome magic that allows us to build apps very quickly. The Rails
 Way is very useful during the initial stages of development, and for simple
