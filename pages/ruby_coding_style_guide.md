@@ -162,20 +162,6 @@ Comments
 * Avoid superfluous comments.
 
 
-The rest
---------
-
-* Avoid hashes-as-optional-parameters. Does the method do too much?
-* Avoid long methods.
-* Avoid long parameter lists.
-* Avoid message chaining (task.project.user), use delegate/demeter instead (task.user)
-* Use `def self.method` to define singleton/class methods.
-* Avoid `alias` when `alias_method` will do.
-* Write for Ruby 1.9. It's time leave 1.8 behind.
-* Avoid needless metaprogramming. Prefer explicity over magic. Your future self
-  and other readers of your code with thank you for it.
-
-
 General
 -------
 
@@ -195,3 +181,25 @@ General
   Make an effort to come up with 2 alternative approaches. This doesn't have to take long.
 * Don't optimize prematurely. Optimize when you have no other choice.
 * Be consistent.
+
+Ruby idiosyncrasies
+--------
+
+* When testing if a DateTime falls into a range, use `cover?` instead of `include?`.
+  [This article](http://pivotallabs.com/reading-the-ruby-source/) explains why.
+  This is the fix if you experience the `warning: Time#succ is obsolete` exception.
+
+The rest
+--------
+
+* Avoid hashes-as-optional-parameters. Does the method do too much?
+* Avoid long methods.
+* Avoid long parameter lists.
+* Avoid message chaining (task.project.user), use delegate/demeter instead (task.user)
+* Use `def self.method` to define singleton/class methods.
+* Avoid `alias` when `alias_method` will do.
+* Write for Ruby 1.9. It's time leave 1.8 behind.
+* Avoid needless metaprogramming. Prefer explicity over magic. Your future self
+  and other readers of your code with thank you for it.
+
+
