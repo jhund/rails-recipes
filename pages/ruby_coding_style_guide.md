@@ -187,7 +187,7 @@ Ruby idiosyncrasies
 
 * When testing if a DateTime falls into a range, use `cover?` instead of `include?`.
   [This article](http://pivotallabs.com/reading-the-ruby-source/) explains why.
-  This is the fix if you experience the `warning: Time#succ is obsolete` exception.
+  This is the fix if you experience `warning: Time#succ is obsolete`.
 
 The rest
 --------
