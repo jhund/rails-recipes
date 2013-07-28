@@ -80,6 +80,11 @@ delegated to current_user with the directive in ApplicationController.
 ...
 ```
 
+This recipe allows you to test new features internally and when you're ready
+to launch, all you do is to update the feature_flag method to return `true`
+so that everybody will see the new feature. Then in a next step you can remove
+the feature flag helper method and all guard clauses in the views.
+
 ### Credits
 
 This recipe is inspired by
