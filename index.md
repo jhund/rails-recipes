@@ -31,6 +31,10 @@ Pretty much any serious Rails project will require some kind of documentation.
 Here is a set of conventions that have worked well for me.
 
 
+#### [Feature flags](pages/feature_flags.html)
+
+How to dynamically enable app features for a given user.
+
 #### [How to change objects](pages/how_to_change_objects.html)
 
 This flowchart helps you decide on the right approach when changing data. It's about

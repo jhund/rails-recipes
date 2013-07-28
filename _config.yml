@@ -56,6 +56,9 @@ nav_items:
 - url: /pages/documentation.html
   text: Documentation
   nav_id: documentation
+- url: /pages/feature_flags.html
+  text: Feature flags
+  nav_id: feature_flags
 - url: /pages/how_to_change_objects.html
   text: How to change objects
   nav_id: how_to_change_objects
