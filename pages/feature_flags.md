@@ -12,6 +12,8 @@ Sometimes you need to dynamically enable certain app features for a given user.
 This recipe gives you nice helper methods that you can add to views to guard
 features that are only available to some users:
 
+First define the feature flag helper methods in a module.
+
 ```ruby
 # app/concerns/feature_flags.rb
 module FeatureFlags
@@ -29,6 +31,9 @@ module FeatureFlags
 end
 ```
 
+Include the module in your `User` class to add the feature flag helper methods
+to the current_user instance.
+
 ```ruby
 # app/models/user.rb
 class User < ActiveRecord::Base
@@ -40,6 +45,10 @@ class User < ActiveRecord::Base
 
 end
 ```
+
+Make the feature flag helper methods available to all controller actions and
+views. Delegate to current_user for easier referencing and to make it work
+if no current_user is present.
 
 ```ruby
 # app/controllers/application_controller.rb
@@ -57,12 +66,15 @@ class ApplicationController < ActionController::Base
 end
 ```
 
+Guard features with conditionals that reference feature flag helper methods. Notice
+that you don't need to send these messages to current_user. They are automatically
+delegated to current_user with the directive in ApplicationController.
+
 ```erb
 <%# app/views/users/index.html.erb %>
 <h1>Users</h1>
 ...
-<%# Guard features with conditionals that reference feature flag helper methods %>
-<% if current_user.can_impersonate_other_users?
+<% if can_impersonate_other_users?
   <li><%=# ... link to impersonate a user from the user list ... %></li>
 <% end %>
 ...
