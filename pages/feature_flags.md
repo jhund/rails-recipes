@@ -18,11 +18,7 @@ First define the feature flag helper methods in a module.
 # app/concerns/feature_flags.rb
 module FeatureFlags
 
-  def can_impersonate_other_users?
-    admin?
-  end
-
-  def sees_beta_features?
+  def can_apply_advanced_ai?
     is_staff? || is_beta_tester?
   end
 
@@ -74,8 +70,8 @@ delegated to current_user with the directive in ApplicationController.
 <%# app/views/users/index.html.erb %>
 <h1>Users</h1>
 ...
-<% if can_impersonate_other_users? %>
-  <li><%=# ... link to impersonate a user from the user list ... %></li>
+<% if can_apply_advanced_ai? %>
+  <li><%=# ... do some crazy advanced AI here ... %></li>
 <% end %>
 ...
 ```
