@@ -9,8 +9,8 @@ nav_id: feature_flags
 </div>
 
 Sometimes you need to dynamically enable certain app features for a given user.
-This recipe gives you nice helper methods that you can add to views to guard
-features that are only available to some users:
+This recipe gives you nice helper methods that you can add to controllers and
+views to guard features that should only be available to a subset of users:
 
 First define the feature flag helper methods in a module.
 
@@ -74,14 +74,14 @@ delegated to current_user with the directive in ApplicationController.
 <%# app/views/users/index.html.erb %>
 <h1>Users</h1>
 ...
-<% if can_impersonate_other_users?
+<% if can_impersonate_other_users? %>
   <li><%=# ... link to impersonate a user from the user list ... %></li>
 <% end %>
 ...
 ```
 
 This recipe allows you to test new features internally and when you're ready
-to launch, all you do is to update the feature_flag method to return `true`
+to launch, all you do is to update the feature flag method to return `true`
 so that everybody will see the new feature. Then in a next step you can remove
 the feature flag helper method and all guard clauses in the views.
 
