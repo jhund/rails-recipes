@@ -16,10 +16,36 @@ Formatting
 * No line longer than 80 - 100 characters. Makes it possible to read code e.g. in
   version control diffs and ack search results.
 * Indent with 2 spaces. No tabs, ever. They make reading diffs hard.
-* Avoid indentation other than at the beginning of a line. It might look pretty
+* If you break up long argument lists, hashes, or arrays, keep the elements
+  and the closing delimiter on their own lines.
+
+    ```ruby
+    do_this({
+      :key1 => 1,
+      :key2 => 2,
+      :key3 => 3,
+    })
+
+    dont_do_this({:key1 => 1,
+                  :key2 => 2,
+                  :key3 => 3})
+    ```
+
+* If you break up a chain of method calls, put first call right after receiver
+  and put subsequent ones each on its own line.
+
+    ```ruby
+    receiver.method1(arg1, arg2)
+            .map { |e| e.to_s }
+            .sort
+            .uniq
+    ```
+
+* Avoid indentation other than at the beginning of a line. In other words
+  don't vertically align tokens on consecutive lines. It might look pretty
   at first sight, however it creates more work because a change to one line might
   affect all other lines. It makes it harder to spot the actual change in
-  version control diffs.
+  version control diffs. Exception: chained method calls (see above).
 
     ```ruby
     def do_this
@@ -77,8 +103,10 @@ Formatting
 
 * Use YARD and its conventions for API documentation.  Don't put an empty line between
   the comment block and the def. [YARD info](http://yardoc.org/).
-* Use empty lines to break up a long method into logical paragraphs.
-* No trailing whitespace.
+* Use empty lines to break up a long method into logical paragraphs. Corollary:
+  Avoid long methods.
+* Use newlines around multi-line blocks (`case`, `if`, `do`, `while`, etc.).
+* No trailing whitespace at line endings.
 
 
 Syntax
@@ -97,7 +125,7 @@ Syntax
     p = Person.find_by_id(id) and p.update_last_seen_at
     ```
 
-* Avoid multiline `?:`, use `if`.
+* Avoid multiline ternary operators (`? : `), use `if`.
 * Use parentheses liberally. Omit them only in the simplest cases.
   They are helpful in breaking long lines and keeping row length under
   100 characters. Makes your ruby look a bit more like C.
@@ -122,13 +150,24 @@ Syntax
     end
     ```
 
-* when comparing two values, put the constant first. This will raise an error
+* When comparing two values, put the constant first. This will raise an error
   if you use `=` where you should have used `==`: `if "start" == state`.
 * Use `||=` freely.
 * Use `w%[...]` notation for arrays that contain single word strings:
   `%w[project todo collaborator].each { |e| puts e }`.
 * Use `\A and \z` to set boundaries on regular expressions, don't use `^ and $`.
-  Az match to the beginning/end of the string. ^$ match to the beginning/end of a line.
+  `\A` and `\z` match to the beginning/end of the string. `^` and `$` match to
+  the beginning/end of a line.
+* Append a comma after the last array entry or hash key. Ruby can parse this
+  syntax, and it helps you avoid syntax errors when you resort the elements:
+
+    ```ruby
+    a = [
+      :item1,
+      :item2,
+      :item3,
+    ]
+    ```
 
 Naming
 ------
@@ -153,14 +192,17 @@ Naming
 * When defining binary operators, name the argument "other": `def +(other)`.
 * Prefer `map` over collect, `find` over `detect`, `find_all` over `select`.
 * Use the following format for boolean getters: `has_permission?`, `is_yellow?`
-* start expensive method names with "compute_"
+* Start expensive method names with "compute_", memoize result in a wrapping
+  method where appropriate.
+* When iterating over an enumerable in a multi-line block, name the block param
+  the singular of the collection.
 
 Comments
 --------
 
 * Comments longer than a word are capitalized and use punctuation.
-* Avoid superfluous comments.
-
+* Avoid superfluous comments that don't add any information to what the code
+  already provides.
 
 General
 -------
@@ -174,13 +216,6 @@ General
     should be written with the assumption that the input data to the function in question is
     correct. Only check data when it "enters" the system for the first time.
   </blockquote>
-* Keep the code simple.
-* Don't generalize prematurely. Build 2 specific solutions before you build a
-  general solution.
-* Design breadth first. Don't jump on the first implementation idea that pops up in your mind.
-  Make an effort to come up with 2 alternative approaches. This doesn't have to take long.
-* Don't optimize prematurely. Optimize when you have no other choice.
-* Be consistent.
 
 Ruby idiosyncrasies
 --------
@@ -192,14 +227,19 @@ Ruby idiosyncrasies
 The rest
 --------
 
-* Avoid hashes-as-optional-parameters. Does the method do too much?
 * Avoid long methods.
 * Avoid long parameter lists.
-* Avoid message chaining (task.project.user), use delegate/demeter instead (task.user)
-* Use `def self.method` to define singleton/class methods.
+* Avoid message chaining (`task.project.user`), use #delegate instead (`task.user`)
+* Use `def self.method` to define singleton/class methods. It communicates much more clearly what’s a class method. Unless you need to mark a class method as private or protected. Then you have to use the `class << self` (singleton_class) form.
 * Avoid `alias` when `alias_method` will do.
-* Write for Ruby 1.9. It's time leave 1.8 behind.
+* Write for Ruby 2.0. It's time leave 1.8 and 1.9 behind.
+* Don't optimize prematurely. Optimize when you have no other choice.
+* Don't over-engineer (unnecessary abstractions)
+* Don't under-engineer (copy and paste code)
 * Avoid needless metaprogramming. Prefer explicity over magic. Your future self
   and other readers of your code with thank you for it.
-
-
+* Be consistent.
+* Don't generalize prematurely. Build 2 specific solutions before you build a
+  general solution.
+* Design breadth first. Don't jump on the first implementation idea that pops up in your mind.
+  Make an effort to come up with 2 alternative approaches. This doesn't have to take long.
