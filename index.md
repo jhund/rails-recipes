@@ -15,8 +15,7 @@ since 2005:
 
 #### [Concerns](pages/concerns.html)
 
-I know, I know,... Some people are concerned when they see the `concerns` folder
-in your app. Read this to find out why I think they are useful anyways.
+I know, I know,... Some people are concerned when they see the `concerns` folder in your app. Read this to find out why I think they are useful anyways.
 
 
 #### [Configuration](pages/configuration.html)
@@ -75,6 +74,6 @@ Follow this style guide to make your code easy to read and reason about.
 
   <div class="span5">
     <h3>Copyright</h3>
-    Copyright (c) 2010 - 2013 Jo Hund.
+    Copyright (c) 2010 - {{ 'now' | date: "%Y" }} Jo Hund.
   </div>
 </div>
