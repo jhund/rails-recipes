@@ -66,9 +66,9 @@ Follow this style guide to make your code easy to read and reason about.
   <div class="span5">
     <h3>Resources</h3>
     <ul>
-      <li><a href="http://rails-recipes.clearcove.ca">This Documentation</a>
-      <li><a href="https://github.com/jhund/rails-recipes">Source code</a>
-      <li><a href="https://github.com/jhund/rails-recipes/issues">Issues</a>
+      <li><a href="http://rails-recipes.clearcove.ca">This Documentation</a></li>
+      <li><a href="https://github.com/jhund/rails-recipes">Source code</a></li>
+      <li><a href="https://github.com/jhund/rails-recipes/issues">Issues</a></li>
     </ul>
   </div>
 
