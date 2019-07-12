@@ -8,6 +8,11 @@ nav_id: concerns
   <h2>Concerns</h2>
 </div>
 
+<div class="alert">
+  <p><strong>Outdated!</strong></p>
+  <p>This recipe is outdated. Please see newer recipes for alternatives.</p>
+</div>
+
 Rails has had great support for `Concerns` since version 3.
 There is a bit of controversy around this topic. I agree that in some cases
 it's better to use composition than mixing in modules.

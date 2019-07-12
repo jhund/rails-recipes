@@ -8,6 +8,11 @@ nav_id: configuration
   <h2>Configuration</h2>
 </div>
 
+<div class="alert">
+  <p><strong>Outdated!</strong></p>
+  <p>This recipe is outdated. Please see newer recipes for alternatives.</p>
+</div>
+
 Every Rails app requires some kind of configuration:
 
 * Rails Secret Token

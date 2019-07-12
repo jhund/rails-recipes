@@ -8,6 +8,11 @@ nav_id: permissions_and_user_roles
   <h2>Permissions and user roles</h2>
 </div>
 
+<div class="alert">
+  <p><strong>Outdated!</strong></p>
+  <p>This recipe is outdated. Please see newer recipes for alternatives.</p>
+</div>
+
 This pattern helps you manage permissions in your app in a simple and robust way.
 In this example we define access permissions on the `User` class:
 

@@ -8,6 +8,11 @@ nav_id: ruby_coding_style_guide
   <h2>Ruby coding style guide</h2>
 </div>
 
+<div class="alert">
+  <p><strong>Outdated!</strong></p>
+  <p>This recipe is outdated. Please see newer recipes for alternatives.</p>
+</div>
+
 Formatting
 ----------
 
