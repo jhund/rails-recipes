@@ -24,4 +24,4 @@ MIT licensed
 
 ### Copyright
 
-Copyright (c) 2010 - 2017 Jo Hund. See MIT LICENSE
+Copyright (c) 2010 - 2019 Jo Hund. See MIT LICENSE
